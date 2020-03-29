@@ -5,14 +5,20 @@ import br.com.lsena.despesas.dto.TotalPorCartaoDto;
 import br.com.lsena.despesas.dto.TotalPorNomeDto;
 import br.com.lsena.despesas.error.RequestParamException;
 import br.com.lsena.despesas.error.ResourceNotFoundExeption;
+import br.com.lsena.despesas.filtro.DespesaSpecificationBuilder;
+import br.com.lsena.despesas.filtro.SearchOperation;
 import br.com.lsena.despesas.repository.AbstractRepository;
 import br.com.lsena.despesas.repository.DespesaRepository;
+import com.google.common.base.Joiner;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
@@ -30,8 +36,22 @@ public class DespesaService extends AbstractService<Despesa> {
     }
 
     public List<Despesa> getAll(String filtro) {
+        DespesaSpecificationBuilder builder = new DespesaSpecificationBuilder();
+        String operationSetExper = Joiner.on("|").join(SearchOperation.SIMPLE_OPERATION_SET);
+        Pattern pattern = Pattern.compile("(\\w+?)(" + operationSetExper + ")(\\p{Punct}?)(\\w+?)(\\p{Punct}?),");
+        Matcher matcher = pattern.matcher(filtro + ",");
+        while (matcher.find()) {
+            builder.with(
+                    matcher.group(1),
+                    matcher.group(2),
+                    matcher.group(4),
+                    matcher.group(3),
+                    matcher.group(5));
+        }
+
+        Specification<Despesa> spec = builder.build();
         try {
-            return repository.findAll();
+            return repository.findAll(spec);
         } catch (Exception e) {
             throw new RequestParamException("Algum parametro informado não é válido, verificar resposta");
         }

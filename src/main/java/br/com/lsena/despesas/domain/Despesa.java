@@ -20,6 +20,6 @@ public class Despesa extends AbstractDomain<Long> {
     private String descricao;
     private String cartao;
     private String nome;
-    private BigDecimal valor = BigDecimal.ZERO;
+    private BigDecimal valor;
     private LocalDate data;
 }
