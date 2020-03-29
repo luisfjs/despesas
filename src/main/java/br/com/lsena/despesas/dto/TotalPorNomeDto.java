@@ -13,5 +13,5 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class TotalPorNomeDto {
     private String nome;
-    private BigDecimal valor = BigDecimal.ZERO;
+    private BigDecimal valor;
 }
