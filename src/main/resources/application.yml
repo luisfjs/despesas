@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: despesas
+  datasource:
+    username: root
+    password: Suro3624#
+    url: jdbc:mysql://0.0.0.0/despesas?createDatabaseIfNotExist=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  #security:
+  #  user:
+  #    name: lsena
+  #    password: mudar@12
+  #    role: ADMIN
