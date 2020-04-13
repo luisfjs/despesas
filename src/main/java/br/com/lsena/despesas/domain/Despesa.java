@@ -22,4 +22,5 @@ public class Despesa extends AbstractDomain<Long> {
     private String nome;
     private BigDecimal valor;
     private LocalDate data;
+    private String mes;
 }

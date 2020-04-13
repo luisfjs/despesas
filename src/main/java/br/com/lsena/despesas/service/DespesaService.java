@@ -66,13 +66,13 @@ public class DespesaService extends AbstractService<Despesa> {
         }
     }
 
-    public List<TotalPorNomeDto> somaPorNome(){
-        List<Despesa> despesas = repository.findAll();
+    public List<TotalPorNomeDto> somaPorNome(String mes){
+        List<Despesa> despesas = repository.findByMes(mes);
         return somaPorNome(despesas);
     }
 
-    public List<TotalPorCartaoDto> somaPorCartao(){
-        List<Despesa> despesas = repository.findAll();
+    public List<TotalPorCartaoDto> somaPorCartao(String mes){
+        List<Despesa> despesas = repository.findByMes(mes);
         return despesas.stream()
                 .collect(groupingBy(Despesa::getCartao, Collectors.toList()))
                 .entrySet()
