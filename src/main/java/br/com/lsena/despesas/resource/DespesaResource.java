@@ -47,13 +47,13 @@ public class DespesaResource {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/totalPorNome")
-    public ResponseEntity<List<TotalPorNomeDto>> totalPorNome(){
-        return new ResponseEntity(despesaService.somaPorNome(), HttpStatus.OK);
+    @GetMapping("/totalPorNome/{mes}")
+    public ResponseEntity<List<TotalPorNomeDto>> totalPorNome(@PathVariable("mes") String mes){
+        return new ResponseEntity(despesaService.somaPorNome(mes), HttpStatus.OK);
     }
 
-    @GetMapping("/totalPorCartao")
-    public ResponseEntity<List<TotalPorCartaoDto>> totalPorCartao(){
-        return new ResponseEntity(despesaService.somaPorCartao(), HttpStatus.OK);
+    @GetMapping("/totalPorCartao/{mes}")
+    public ResponseEntity<List<TotalPorCartaoDto>> totalPorCartao(@PathVariable("mes") String mes){
+        return new ResponseEntity(despesaService.somaPorCartao(mes), HttpStatus.OK);
     }
 }
