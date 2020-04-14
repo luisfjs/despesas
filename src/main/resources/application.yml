@@ -1,13 +1,18 @@
+logging:
+  level:
+    root: INFO
+    org:
+      springframework:
+        servlet:
+          DispatcherServlet: DEBUG
+        web: INFO
+    br:
+      com:
+        lsena:
+          despesas: DEBUG
 spring:
   application:
     name: despesas
-  #Mysql Local
-#  datasource:
-#    username: root
-#    password: Suro3624#
-#    url: jdbc:mysql://0.0.0.0/despesas?createDatabaseIfNotExist=true
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-  #Postgres Heroku
   datasource:
     username: ${DB_USER}
     password: ${DB_PASSWORD}
@@ -17,16 +22,10 @@ spring:
   jpa:
     properties:
       hibernate:
-        #dialect: org.hibernate.dialect.MySQL8Dialect
         dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
     show-sql: true
-  #security:
-  #  user:
-  #    name: lsena
-  #    password: mudar@12
-  #    role: ADMIN
 
 com:
   zaxxer:

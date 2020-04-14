@@ -1,5 +1,6 @@
 package br.com.lsena.despesas.security;
 
+import br.com.lsena.despesas.LogarExecucao;
 import br.com.lsena.despesas.domain.ApplicationUser;
 import br.com.lsena.despesas.repository.ApplicationUserRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,9 +24,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private final ApplicationUserRepository applicationUserRepository;
 
     @Override
+    @LogarExecucao
     public UserDetails loadUserByUsername(String username) {
-        log.info("Searching in the DB the user by username '{}'", username);
-
         ApplicationUser applicationUser = applicationUserRepository.findByUsername(username);
 
         log.info("ApplicationUser found '{}'", applicationUser);

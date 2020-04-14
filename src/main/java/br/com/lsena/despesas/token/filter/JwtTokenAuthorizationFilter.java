@@ -1,5 +1,6 @@
 package br.com.lsena.despesas.token.filter;
 
+import br.com.lsena.despesas.LogarExecucao;
 import br.com.lsena.despesas.token.SecurityContextUtil;
 import br.com.lsena.despesas.token.TokenConverter;
 import br.com.lsena.despesas.token.config.JwtConfiguration;

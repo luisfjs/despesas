@@ -1,5 +1,6 @@
 package br.com.lsena.despesas.token;
 
+import br.com.lsena.despesas.LogarExecucao;
 import br.com.lsena.despesas.token.config.JwtConfiguration;
 import com.nimbusds.jose.JWEObject;
 import com.nimbusds.jose.crypto.DirectDecrypter;
@@ -21,6 +22,7 @@ public class TokenConverter {
     private final JwtConfiguration jwtConfiguration;
 
     @SneakyThrows
+    @LogarExecucao
     public String decryptToken(String encryptedToken) {
         log.info("Decrypting token");
         JWEObject jweObject = JWEObject.parse(encryptedToken);
@@ -31,6 +33,7 @@ public class TokenConverter {
     }
 
     @SneakyThrows
+    @LogarExecucao
     public void validateTokenSignature(String signedToken) {
         log.info("Starting method to validate token signature...");
         SignedJWT signedJWT = SignedJWT.parse(signedToken);

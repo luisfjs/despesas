@@ -1,5 +1,6 @@
 package br.com.lsena.despesas.service;
 
+import br.com.lsena.despesas.LogarExecucao;
 import br.com.lsena.despesas.domain.Despesa;
 import br.com.lsena.despesas.dto.TotalPorCartaoDto;
 import br.com.lsena.despesas.dto.TotalPorNomeDto;
@@ -29,6 +30,7 @@ public class DespesaService extends AbstractService<Despesa> {
         this.repository = repository;
     }
 
+    @LogarExecucao
     public List<Despesa> getAll(String filtro) {
         try {
             return repository.findAll();
@@ -37,11 +39,13 @@ public class DespesaService extends AbstractService<Despesa> {
         }
     }
 
+    @LogarExecucao
     public Despesa get(Long id) {
         Optional<Despesa> entity = repository.findById(id);
         return entity.orElseThrow(() -> new ResourceNotFoundExeption("Recurso não encontrado com o ID: " + id));
     }
 
+    @LogarExecucao
     public void delete(Despesa despesa) {
         try {
             repository.delete(despesa);
@@ -50,6 +54,7 @@ public class DespesaService extends AbstractService<Despesa> {
         }
     }
 
+    @LogarExecucao
     public Despesa save(Despesa despesa) {
         try {
             return repository.save(despesa);
@@ -58,6 +63,7 @@ public class DespesaService extends AbstractService<Despesa> {
         }
     }
 
+    @LogarExecucao
     public List<Despesa> saveAll(List<Despesa> despesas) {
         try {
             return repository.saveAll(despesas);
@@ -66,11 +72,13 @@ public class DespesaService extends AbstractService<Despesa> {
         }
     }
 
+    @LogarExecucao
     public List<TotalPorNomeDto> somaPorNome(String mes){
         List<Despesa> despesas = repository.findByMes(mes);
         return somaPorNome(despesas);
     }
 
+    @LogarExecucao
     public List<TotalPorCartaoDto> somaPorCartao(String mes){
         List<Despesa> despesas = repository.findByMes(mes);
         return despesas.stream()
@@ -87,6 +95,7 @@ public class DespesaService extends AbstractService<Despesa> {
                 .collect(Collectors.toList());
     }
 
+    @LogarExecucao
     private List<TotalPorNomeDto> somaPorNome(List<Despesa> despesas){
         return despesas.stream()
                 .collect(groupingBy(Despesa::getNome, Collectors.reducing(BigDecimal.ZERO, Despesa::getValor, BigDecimal::add)))

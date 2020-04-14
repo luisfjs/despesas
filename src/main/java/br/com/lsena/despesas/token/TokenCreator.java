@@ -1,5 +1,6 @@
 package br.com.lsena.despesas.token;
 
+import br.com.lsena.despesas.LogarExecucao;
 import br.com.lsena.despesas.domain.ApplicationUser;
 import br.com.lsena.despesas.token.config.JwtConfiguration;
 import com.nimbusds.jose.*;
@@ -32,6 +33,7 @@ public class TokenCreator {
     private final JwtConfiguration jwtConfiguration;
 
     @SneakyThrows
+    @LogarExecucao
     public SignedJWT createSignedJWT(Authentication auth) {
         log.info("Starting to create the signed JWT");
 
@@ -62,6 +64,7 @@ public class TokenCreator {
 
     }
 
+    @LogarExecucao
     private JWTClaimsSet createJWTClaimSet(Authentication auth, ApplicationUser applicationUser) {
         log.info("Creating the JwtClaimSet Object for '{}'", applicationUser);
 
@@ -78,6 +81,7 @@ public class TokenCreator {
     }
 
     @SneakyThrows
+    @LogarExecucao
     private KeyPair generateKeyPair() {
         log.info("Generating RSA 2048 bits Keys");
 
@@ -88,7 +92,7 @@ public class TokenCreator {
         return generator.genKeyPair();
     }
 
-
+    @LogarExecucao
     public String encryptToken(SignedJWT signedJWT) throws JOSEException {
         log.info("Starting the encryptToken method");
 
