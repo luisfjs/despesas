@@ -16,5 +16,5 @@ spring:
     show-sql: true
 jwt:
   config:
-    login-url: /auth/login
+    login-url: /login
     type: encrypted
